@@ -1,3 +1,10 @@
+/**
+ * Analyze the properties of a workflow.
+ *
+ * @param {Object} workflow The workflow object
+ * @param {Object} details The response object to add the analysis results to
+ * @return {boolean} Whether the workflow is an atomic action or not
+ */
 export function analyzeProperties(workflow, details) {
   // Log the workflow object to understand its structure
   console.log("Workflow structure:", workflow);
@@ -12,6 +19,7 @@ export function analyzeProperties(workflow, details) {
   ) {
     const isAtomic = workflow.workflow.properties.atomic.is_atomic;
 
+    // Add the definition type to the details
     details.properties.push({
       type: "info",
       title: "Definition Type",
@@ -21,6 +29,7 @@ export function analyzeProperties(workflow, details) {
         : "This is a normal workflow, specific checks for workflow activities can be applied here.",
     });
 
+    // Add the categories to the details
     if (workflow.categories && Array.isArray(workflow.categories)) {
       const categories = workflow.categories.map(
         (category) => category.name || category

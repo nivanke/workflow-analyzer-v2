@@ -1,6 +1,14 @@
+/**
+ * ButtonHandler class to handle the workflow analysis button.
+ * It binds to the button and handles the click event.
+ */
 import { WorkflowAnalyzer } from "../WorkflowAnalyzer.js";
 
 class ButtonHandler {
+  /**
+   * Constructor for ButtonHandler.
+   * Initializes the class and binds the click event listener.
+   */
   constructor() {
     this.jsonInput = document.getElementById("json-input");
     this.analyzeButton = document.getElementById("analyze-button");
@@ -10,6 +18,10 @@ class ButtonHandler {
     this.init();
   }
 
+  /**
+   * Initializes the ButtonHandler class.
+   * Focuses on the JSON input and adds an event listener to the button.
+   */
   init() {
     this.jsonInput.focus();
     this.analyzeButton.addEventListener(
@@ -18,6 +30,11 @@ class ButtonHandler {
     );
   }
 
+  /**
+   * Shows a message in the results div.
+   * @param {string} message - The message to display.
+   * @param {"error"|"success"} type - The type of message to display.
+   */
   showMessage(message, type = "error") {
     const existingMessages = document.querySelectorAll(".message");
     existingMessages.forEach((msg) => msg.remove());
@@ -38,6 +55,10 @@ class ButtonHandler {
     this.resultsDiv.insertBefore(messageDiv, this.resultsDiv.firstChild);
   }
 
+  /**
+   * Handles the click event on the button.
+   * Analyzes the JSON and shows the results.
+   */
   handleAnalyzeClick() {
     const jsonContent = this.jsonInput.value.trim();
     if (!jsonContent) {
@@ -60,6 +81,9 @@ class ButtonHandler {
     }
   }
 
+  /**
+   * Sets up the "more info" handlers for the analysis results.
+   */
   setupMoreInfoHandlers() {
     document.querySelectorAll(".more-info-toggle").forEach((toggle) => {
       toggle.addEventListener("click", () => {
@@ -73,6 +97,9 @@ class ButtonHandler {
   }
 }
 
+/**
+ * Initializes the ButtonHandler class when the document is loaded.
+ */
 document.addEventListener("DOMContentLoaded", () => {
   new ButtonHandler();
 });

@@ -19,7 +19,7 @@ export function analyzeVariables(workflow, details) {
 
       try {
         if (!variableName || !variableScope || !variableDescription) {
-          throw new Error("One or more required properties are undefined");
+          console.log(new Error("One or more required properties are undefined"));
         }
 
         // Check if variable description is less than 10 characters for specific scopes

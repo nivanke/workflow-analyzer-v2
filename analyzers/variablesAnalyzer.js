@@ -1,3 +1,9 @@
+/**
+ * Analyze the variables in a workflow.
+ *
+ * @param {Object} workflow - The workflow object
+ * @param {Object} details - The response object to store analysis results
+ */
 export function analyzeVariables(workflow, details) {
   const variablesList = workflow.workflow.variables;
 
@@ -13,7 +19,7 @@ export function analyzeVariables(workflow, details) {
 
       try {
         if (!variableName || !variableScope || !variableDescription) {
-          throw new Error("One or more required properties are undefined");
+          console.log(new Error("One or more required properties are undefined"));
         }
 
         // Check if variable description is less than 10 characters for specific scopes
@@ -26,6 +32,8 @@ export function analyzeVariables(workflow, details) {
             type: "warning",
             title: `Variable: ${variableName}`,
             description: `Variable description is too short for scope "${variableScope}" for variable: ${variableName}`,
+            moreInfo:
+              "The variable description should be longer than 10 characters for the following scopes: input, local, static",
             moreInfo: "",
           });
         }

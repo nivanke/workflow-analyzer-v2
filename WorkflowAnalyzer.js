@@ -1,15 +1,26 @@
+// Import different analyzers types and combine them together
 import { analyzeProperties } from "./analyzers/propertiesAnalyzer.js";
 import { analyzeVariables } from "./analyzers/variablesAnalyzer.js";
 import { analyzeTargets } from "./analyzers/targetsAnalyzer.js";
 import { analyzeTriggers } from "./analyzers/triggersAnalyzer.js";
 import { analyzeActions } from "./analyzers/actionsAnalyzer.js";
 
+/**
+ * Class to analyze a workflow from a JSON input.
+ */
 export class WorkflowAnalyzer {
+  /**
+   * Analyzes the given workflow JSON.
+   * 
+   * @param {string} workflowJson - The workflow JSON string.
+   * @return {Object} - The analysis result containing success status and formatted response.
+   */
   analyze(workflowJson) {
     let workflow;
     try {
       workflow = JSON.parse(workflowJson);
 
+      // Initialize response object with details and summary sections
       const response = {
         details: {
           properties: [],
@@ -33,6 +44,7 @@ export class WorkflowAnalyzer {
       // Determine if the workflow is atomic and analyze properties
       const isAtomic = analyzeProperties(workflow, response.details);
 
+      // Analyze other components of the workflow
       // Analyze other components
       analyzeVariables(workflow, response.details, isAtomic);
       analyzeTargets(workflow, response.details, isAtomic);
@@ -42,6 +54,7 @@ export class WorkflowAnalyzer {
       // Log the response structure after analysis
       console.log("Final response structure:", response);
 
+      // Aggregate statistics from the detailed analysis
       // Aggregate statistics
       for (const item in response.details) {
         response.details[item].forEach((detail) => {
@@ -64,6 +77,12 @@ export class WorkflowAnalyzer {
     }
   }
 
+  /**
+   * Formats the analysis details into an HTML structure.
+   * 
+   * @param {Object} details - The details object containing analysis data.
+   * @return {string} - The formatted HTML response.
+   */
   formatResponse(details) {
     const sections = [
       { title: "Workflow Properties", data: details.properties },
@@ -80,6 +99,13 @@ export class WorkflowAnalyzer {
       .join("");
   }
 
+  /**
+   * Builds the HTML section for the given title and data.
+   * 
+   * @param {string} title - The section title.
+   * @param {Array} data - The data for the section.
+   * @return {string} - The HTML string for the section.
+   */
   buildSection(title, data) {
     return `
       <div class="analysis-section">
@@ -99,6 +125,12 @@ export class WorkflowAnalyzer {
     `;
   }
 
+  /**
+   * Builds a single HTML table row for the given item.
+   * 
+   * @param {Object} item - The item containing title, description, and type.
+   * @return {string} - The HTML string for the table row.
+   */
   buildRow(item) {
     const icons = {
       success: "check",

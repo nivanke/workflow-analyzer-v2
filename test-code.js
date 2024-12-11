@@ -2,6 +2,11 @@ import { WorkflowAnalyzer } from "./WorkflowAnalyzer";
 
 const analyzer = new WorkflowAnalyzer();
 
+/**
+ * Handles the file selection event.
+ * Reads the selected file and stores its content for analysis.
+ * @param {Event} event - The file selection event.
+ */
 function handleFileSelect(event) {
   const file = event.target.files[0];
   if (file) {
@@ -15,6 +20,10 @@ function handleFileSelect(event) {
   }
 }
 
+/**
+ * Handles the analyze button click event.
+ * Analyzes the file content and displays the results.
+ */
 function handleAnalyzeClick() {
   const content = document.getElementById("analyze-button").dataset.content;
   if (content) {
@@ -27,6 +36,7 @@ function handleAnalyzeClick() {
   }
 }
 
+// Add event listeners for file input and analyze button.
 // Add event listeners
 document
   .getElementById("file-input")

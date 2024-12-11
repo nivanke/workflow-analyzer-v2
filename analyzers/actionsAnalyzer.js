@@ -1,3 +1,10 @@
+/**
+ * Analyze the actions in the workflow.
+ *
+ * @param {Object} workflow The workflow object
+ * @param {Object} response The response object to add the analysis results to
+ * @param {boolean} isAtomic Whether the workflow is an atomic action or not
+ */
 export function analyzeActions(workflow, response, isAtomic) {
   const atomicActions = [];
   let actionCount = 0;
@@ -20,6 +27,11 @@ export function analyzeActions(workflow, response, isAtomic) {
     moreInfo: "",
   });
 
+  /**
+   * Recursively check the actions for issues.
+   *
+   * @param {Array} actions The actions to check
+   */
   function checkActions(actions) {
     actions.forEach((action, index) => {
       console.log(`Processing action ${index + 1}:`, action);
@@ -152,6 +164,12 @@ export function analyzeActions(workflow, response, isAtomic) {
   }
 
   // Function to determine the continue on failure status
+  /**
+   * Get the continue on failure status for an atomic action.
+   *
+   * @param {Object} properties The properties object of the atomic action
+   * @return {string} The continue on failure status
+   */
   function getAtomicsContinueOnFailureStatus(properties) {
     return properties.continue_on_failure ? "Yes" : "No";
   }
